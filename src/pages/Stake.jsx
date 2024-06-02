@@ -16,7 +16,7 @@ const Stake = () => {
   const [modalMessage, setModalMessage] = useState("");
   const [passcode, setPasscode] = useState(Array(4).fill(""));
   const [days, setDays] = useState(0);
-  const [rate] = useState(0.5);
+  const [rate] = useState(0.2);
   const [userData, setUserData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [token, setToken] = useState(null);
@@ -77,27 +77,16 @@ const Stake = () => {
     setDays(days + 1);
   };
 
-  // const handleConfirm = () => {
-  //   alert(
-  //     `You have locked $${amount} for ${days} days. You will earn $${projectedEarnings.toFixed(
-  //       2
-  //     )} in interest.`
-  //   );
-  //   // Add logic to handle the locking of the amount, e.g., sending data to a server.
-  // };
-
-  const balance = 5000;
   const profit = 0;
-  // const profitPercentage = 2;
-
-  const handlePasscodeChange = (index, value) => {
-    const newPasscode = [...passcode];
-    newPasscode[index] = value;
-    setPasscode(newPasscode);
-  };
 
   const handleContinueClick = async () => {
     const amountValue = parseFloat(amount);
+    if (userData.balance < amountValue) {
+      setModalMessage("Insufficient balance");
+      setIsModalOpen(true);
+      return;
+    }
+
     const data = {
       userId: userData._id,
       amount: amountValue,
@@ -113,12 +102,6 @@ const Stake = () => {
       setModalMessage("Staking Error");
       setIsModalOpen(true);
     }
-  };
-
-  const handleConfirmClick = () => {
-    // Perform the withdrawal action here
-    alert("Withdrawal confirmed!");
-    setIsModalOpen(false);
   };
 
   const closeModal = () => {

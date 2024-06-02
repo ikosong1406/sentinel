@@ -86,6 +86,12 @@ const Withdrawal = () => {
     : 0;
 
   const handleContinueClick = async () => {
+    if (userData.balance < total) {
+      setModalMessage("Insufficient balance");
+      setIsModalOpen(true);
+      return;
+    }
+
     const data = {
       userId: userData._id,
       amount,

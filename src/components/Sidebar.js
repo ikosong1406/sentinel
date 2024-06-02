@@ -13,7 +13,7 @@ const Sidebar = () => {
   return (
     <div className="sideDiv1">
       <div className="sideDiv2">
-        <h1 className="logo">TL</h1>
+        <h1 className="logo">S</h1>
       </div>
       <div className="sideDiv3">
         <NavLink
