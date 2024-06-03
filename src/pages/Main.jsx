@@ -108,7 +108,7 @@ const Main = () => {
     const fetchMarketData = async () => {
       try {
         const response = await axios.get(
-          "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=XRP&market=XAUT&apikey=G1ZAQLRST5V1ZATU"
+          "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=XRP&market=XAUT&apikey=2AWN32U1C4SU3E3E"
         );
 
         const timeSeries =
