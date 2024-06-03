@@ -105,46 +105,46 @@ const Main = () => {
   });
 
   useEffect(() => {
-    const fetchMarketData = async () => {
-      try {
-        const response = await axios.get(
-          "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=XRP&market=XAUT&apikey=2AWN32U1C4SU3E3E"
-        );
+    // Generating dummy data
+    const generateDummyData = () => {
+      const data = [];
+      const numberOfPoints = 30;
+      let currentDate = new Date();
 
-        const timeSeries =
-          response.data["Time Series (Digital Currency Daily)"];
-        if (timeSeries) {
-          const marketData = Object.keys(timeSeries).map((date) => {
-            const dayData = timeSeries[date];
-            return {
-              x: new Date(date),
-              y: [
-                parseFloat(dayData["1. open"]),
-                parseFloat(dayData["2. high"]),
-                parseFloat(dayData["3. low"]),
-                parseFloat(dayData["4. close"]),
-              ],
-            };
-          });
+      for (let i = 0; i < numberOfPoints; i++) {
+        const open = (Math.random() * 1000).toFixed(2);
+        const high = (Math.random() * 1000 + parseFloat(open)).toFixed(2);
+        const low = (Math.random() * 1000 - parseFloat(open) / 2).toFixed(2);
+        const close = (Math.random() * 1000).toFixed(2);
 
-          setChartData({
-            series: [
-              {
-                data: marketData,
-              },
-            ],
-            options: chartData.options,
-            loading: false, // Update loading state
-          });
-        } else {
-          console.error("Invalid API response structure", response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching market data:", error);
+        data.push({
+          x: new Date(currentDate).toISOString(),
+          y: [
+            parseFloat(open),
+            parseFloat(high),
+            parseFloat(low),
+            parseFloat(close),
+          ],
+        });
+
+        // Move to the next day
+        currentDate.setDate(currentDate.getDate() - 1);
       }
+
+      return data;
     };
 
-    fetchMarketData();
+    const marketData = generateDummyData();
+
+    setChartData((prevChartData) => ({
+      ...prevChartData,
+      series: [
+        {
+          data: marketData,
+        },
+      ],
+      loading: false, // Update loading state
+    }));
   }, []);
 
   const [chartData1, setChartData1] = useState({
