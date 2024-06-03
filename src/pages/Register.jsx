@@ -122,19 +122,7 @@ const Register = () => {
         >
           <div className="modalContent">
             <IoClose className="iq" onClick={closeModal} />
-            <h2>Input the code sent to your email address</h2>
-            <>
-              <div className="passcodeInput">
-                <input
-                  type="text"
-                  value={passcode}
-                  onChange={(e) => setPasscode(e.target.value)}
-                />
-              </div>
-              <div className="depositDiv9">
-                <button onClick={codeVerification}>Confirm</button>
-              </div>
-            </>
+            <h2>Now Login with ur registered details</h2>
           </div>
         </Modal>
       </div>
